@@ -3,7 +3,7 @@ Springboot + Kronos + JDK 17 + Maven + Kotlin 2.0.0
 ## Introduction
 This is a simple Springboot application that uses Kronos.
 
-If you want to know more about Kronos, please visit [Kronos](https://www.kotlinor.com/).
+If you want to know more about Kronos, please visit [Kronos](https://www.kotlinorm.com/).
 
 After run the application, you can access the following URL to see the result:
 ```
