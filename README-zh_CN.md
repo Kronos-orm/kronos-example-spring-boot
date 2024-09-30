@@ -2,7 +2,7 @@
 
 -------------------------
 
-[English](https://github.com/Kronos-orm/Kronos-orm/blob/main/README.MD) | 简体中文
+[English](https://github.com/Kronos-orm/kronos-example-spring-boot/blob/main/README.md) | 简体中文
 
 这是一个基于Springboot + Kronos ORM + JDK 17 + Maven + Kotlin 2.0.0的示例项目。
 
