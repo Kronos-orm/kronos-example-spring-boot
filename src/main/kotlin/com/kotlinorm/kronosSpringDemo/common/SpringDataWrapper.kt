@@ -1,4 +1,4 @@
-package com.kotlinorm.kronosSpringDemo.controller
+package com.kotlinorm.kronosSpringDemo.common
 
 import com.kotlinorm.beans.dsl.KPojo
 import com.kotlinorm.beans.task.KronosAtomicBatchTask
@@ -6,8 +6,8 @@ import com.kotlinorm.enums.DBType
 import com.kotlinorm.interfaces.KAtomicActionTask
 import com.kotlinorm.interfaces.KAtomicQueryTask
 import com.kotlinorm.interfaces.KronosDataSourceWrapper
+import com.kotlinorm.utils.Extensions.safeMapperTo
 import org.springframework.dao.DataAccessException
-import org.springframework.jdbc.core.DataClassRowMapper
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.jdbc.datasource.DataSourceTransactionManager
@@ -54,12 +54,12 @@ class SpringDataWrapper(private val dataSource: DataSource) : KronosDataSourceWr
         return namedJdbc.queryForList(task.sql, task.paramMap)
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun forList(task: KAtomicQueryTask, kClass: KClass<*>): List<Any> {
-        return if (KPojo::class.isSuperclassOf(kClass)) namedJdbc.query(
+        return if (KPojo::class.isSuperclassOf(kClass)) namedJdbc.queryForList(
             task.sql,
-            task.paramMap,
-            DataClassRowMapper(kClass.java)
-        )
+            task.paramMap
+        ).map { it.safeMapperTo(kClass as KClass<KPojo>) }
         else namedJdbc.queryForList(task.sql, task.paramMap, kClass.java)
     }
 
@@ -71,17 +71,22 @@ class SpringDataWrapper(private val dataSource: DataSource) : KronosDataSourceWr
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun forObject(task: KAtomicQueryTask, kClass: KClass<*>): Any? {
         return try {
-            if (KPojo::class.isSuperclassOf(kClass)) namedJdbc.queryForObject(
-                task.sql,
-                task.paramMap,
-                DataClassRowMapper(kClass.java)
-            )
-            else namedJdbc.queryForObject(task.sql, task.paramMap, kClass.java)
+            if (KPojo::class.isSuperclassOf(kClass)) {
+                namedJdbc.queryForMap(
+                    task.sql,
+                    task.paramMap
+                ).safeMapperTo(kClass as KClass<KPojo>)
+            } else namedJdbc.queryForObject(task.sql, task.paramMap, kClass.java)
         } catch (e: DataAccessException) {
+            e.printStackTrace()
             null
+        } catch (e: Exception) {
+            throw e
         }
+
     }
 
     override fun update(task: KAtomicActionTask): Int {

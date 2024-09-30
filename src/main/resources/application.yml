@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: kronos-example-spring-boot
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://localhost:3306/example"
+    username: root
+    password: "**********"
+    dbcp2:
+      max-idle: 10

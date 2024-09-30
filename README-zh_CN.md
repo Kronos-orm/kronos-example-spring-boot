@@ -2,15 +2,15 @@
 
 -------------------------
 
-English | [简体中文](https://github.com/Kronos-orm/Kronos-orm/blob/main/README-zh_CN.MD)
+[English](https://github.com/Kronos-orm/Kronos-orm/blob/main/README.MD) | 简体中文
 
-This is a sample project based on Springboot + Kronos ORM + JDK 17 + Maven + Kotlin 2.0.0.
+这是一个基于Springboot + Kronos ORM + JDK 17 + Maven + Kotlin 2.0.0的示例项目。
 
-If you would like to learn more about Kronos, please visit [Kronos](https://www.kotlinorm.com/).
+如果您想了解更多关于Kronos的信息，请访问[Kronos](https://www.kotlinorm.com/)。
 
-## Introducing Maven dependencies
+## 引入Maven依赖
 
-**1. Add Kronos dependency**
+**1. 添加Kronos依赖**
 
 ```xml
 
@@ -23,7 +23,7 @@ If you would like to learn more about Kronos, please visit [Kronos](https://www.
 </dependencies>
 ```
 
-**2. Add Kotlin compiler plugin**
+**2. 添加Kotlin编译器插件**
 
 ```xml
 
@@ -54,15 +54,15 @@ If you would like to learn more about Kronos, please visit [Kronos](https://www.
 </plugins>
 ```
 
-## Configure the data source
+## 配置数据源
 
-Objects can be created dynamically or through configuration files.
+可以动态创建对象，也可以通过配置文件创建对象。
 
-A custom wrapper was created in the
-project: [SpringDataWrapper](https://github.com/Kronos-orm/Kronos-orm/blob/main/src/main/kotlin/com/kotlinorm/kronosSpringDemo/common/SpringDataWrapper.kt)
-, you can modify or extend it, or use other data source wrappers.
 
-### Dynamic object creation
+项目中创建了一个自定义包装器：[SpringDataWrapper](https://github.com/Kronos-orm/Kronos-orm/blob/main/src/main/kotlin/com/kotlinorm/kronosSpringDemo/common/SpringDataWrapper.kt)
+，您可以修改或扩展它，也可以使用其他数据源包装器。
+
+### 动态创建对象
 
 ```kotlin
 val dataSource = HikariDataSource().apply {
@@ -75,7 +75,7 @@ val dataSource = HikariDataSource().apply {
 kronos.dataSource = { dataSource }
 ```
 
-### Creating objects via configuration files (springboot)
+### 通过配置文件创建对象(springboot)
 
 ```yaml
 spring:
@@ -112,15 +112,14 @@ open class Application(val config: DataSourceConfig) {
 }
 ```
 
-## Run the project
+## 运行项目
 
-After running the project, visit the following URL to view the results:
+运行项目后，访问以下URL，即可查看结果：
 
 ```
 http://localhost:8080
 ```
 
-If the interface returns the results shown below, Kronos has run successfully and the compiler plugin is working
-properly.
+如果接口返回的结果如下图所示，则表示Kronos已成功运行，编译器插件也已正常工作。
 
 ![screen](https://github.com/Kronos-orm/kronos-spring-demo/blob/main/screenshot/img.png?raw=true)

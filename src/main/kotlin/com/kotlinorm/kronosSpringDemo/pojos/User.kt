@@ -1,13 +1,13 @@
-package com.kotlinorm.kronosSpringDemo.controller
+package com.kotlinorm.kronosSpringDemo.pojos
 
 import com.kotlinorm.annotations.PrimaryKey
 import com.kotlinorm.annotations.Table
 import com.kotlinorm.beans.dsl.KPojo
 
-@Table("mysql_user")
-data class MysqlUser(
+@Table("tb_user")
+data class User(
     @PrimaryKey(identity = true)
     val id: Int? = null,
-    val name: String? = null,
+    val name: String? = null, // name for user
     val age: Int? = null,
 ) : KPojo

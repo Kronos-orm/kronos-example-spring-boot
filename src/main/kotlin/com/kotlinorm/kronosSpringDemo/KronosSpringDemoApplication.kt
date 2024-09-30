@@ -1,29 +1,28 @@
 package com.kotlinorm.kronosSpringDemo
 
 import com.kotlinorm.Kronos
-import com.kotlinorm.kronosSpringDemo.controller.SpringDataWrapper
-import org.apache.commons.dbcp2.BasicDataSource
+import com.kotlinorm.kronosSpringDemo.common.DataSourceConfig
+import com.kotlinorm.kronosSpringDemo.common.SpringDataWrapper
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 import org.springframework.boot.runApplication
 
 
 @SpringBootApplication(
-    scanBasePackages = ["com.kotlinorm.kronosSpringDemo.controller"], exclude = [DataSourceAutoConfiguration::class]
+    scanBasePackages = [
+        "com.kotlinorm.kronosSpringDemo.common",
+        "com.kotlinorm.kronosSpringDemo.controller"
+    ], exclude = [DataSourceAutoConfiguration::class]
 )
-open class KronosSpringDemoApplication
+open class KronosSpringDemoApplication(
+    @Autowired dataSourceConfig: DataSourceConfig
+) {
+    init {
+        Kronos.dataSource = { SpringDataWrapper(dataSourceConfig.dataSource()) }
+    }
+}
 
 fun main(args: Array<String>) {
-    Kronos.apply {
-        dataSource = {
-            SpringDataWrapper(BasicDataSource().apply {
-                driverClassName = "com.mysql.cj.jdbc.Driver"
-                url = "jdbc:mysql://localhost:3306/test"
-                username = "root"
-                password = "******"
-                maxIdle = 10
-            })
-        }
-    }
     runApplication<KronosSpringDemoApplication>(*args)
 }
