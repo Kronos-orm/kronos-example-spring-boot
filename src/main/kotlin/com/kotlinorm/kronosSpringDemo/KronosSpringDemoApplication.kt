@@ -3,6 +3,7 @@ package com.kotlinorm.kronosSpringDemo
 import com.kotlinorm.Kronos
 import com.kotlinorm.kronosSpringDemo.common.DataSourceConfig
 import com.kotlinorm.kronosSpringDemo.common.SpringDataWrapper
+import com.kotlinorm.kronosSpringDemo.common.SpringDataWrapper.Companion.wrap
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
@@ -18,8 +19,9 @@ import org.springframework.boot.runApplication
 open class KronosSpringDemoApplication(
     @Autowired dataSourceConfig: DataSourceConfig
 ) {
+    val dataSource: SpringDataWrapper by lazy { dataSourceConfig.dataSource().wrap() }
     init {
-        Kronos.dataSource = { SpringDataWrapper(dataSourceConfig.dataSource()) }
+        Kronos.dataSource = { dataSource }
     }
 }
 

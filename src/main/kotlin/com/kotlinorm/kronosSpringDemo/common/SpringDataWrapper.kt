@@ -115,11 +115,15 @@ class SpringDataWrapper(private val dataSource: DataSource) : KronosDataSourceWr
     }
 
     companion object {
-        fun JdbcTemplate.wrapper(): SpringDataWrapper {
+        fun DataSource.wrap(): SpringDataWrapper {
+            return SpringDataWrapper(this)
+        }
+
+        fun JdbcTemplate.wrap(): SpringDataWrapper {
             return SpringDataWrapper(this.dataSource!!)
         }
 
-        fun NamedParameterJdbcTemplate.wrapper(): SpringDataWrapper {
+        fun NamedParameterJdbcTemplate.wrap(): SpringDataWrapper {
             return SpringDataWrapper(this.jdbcTemplate.dataSource!!)
         }
     }

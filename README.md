@@ -59,18 +59,20 @@ If you would like to learn more about Kronos, please visit [Kronos](https://www.
 Objects can be created dynamically or through configuration files.
 
 A custom wrapper was created in the
-project: [SpringDataWrapper](https://github.com/Kronos-orm/Kronos-orm/blob/main/src/main/kotlin/com/kotlinorm/kronosSpringDemo/common/SpringDataWrapper.kt)
+project: [SpringDataWrapper](https://github.com/Kronos-orm/kronos-example-spring-boot/blob/main/src/main/kotlin/com/kotlinorm/kronosSpringDemo/common/SpringDataWrapper.kt)
 , you can modify or extend it, or use other data source wrappers.
 
 ### Dynamic object creation
 
 ```kotlin
+import com.kotlinorm.kronosSpringDemo.common.SpringDataWrapper.Companion.wrap
+
 val dataSource = HikariDataSource().apply {
     driverClassName = "com.mysql.cj.jdbc.Driver"
     jdbcUrl = "jdbc:mysql://localhost:3306/example"
     username = "root"
     password = "xxxx"
-}
+}.wrap()
 
 kronos.dataSource = { dataSource }
 ```
@@ -94,6 +96,7 @@ spring:
 
 ```kotlin
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import com.kotlinorm.kronosSpringDemo.common.SpringDataWrapper.Companion.wrap
 
 @Configuration
 class DataSourceConfig {
@@ -104,7 +107,7 @@ class DataSourceConfig {
 
 @SpringBootApplication
 open class Application(val config: DataSourceConfig) {
-    val dataSource by lazy { config.dataSource() }
+    val dataSource by lazy { config.dataSource().wrap() }
 
     init {
         kronos.dataSource = { dataSource }

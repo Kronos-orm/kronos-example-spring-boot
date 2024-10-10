@@ -59,7 +59,7 @@
 可以动态创建对象，也可以通过配置文件创建对象。
 
 
-项目中创建了一个自定义包装器：[SpringDataWrapper](https://github.com/Kronos-orm/Kronos-orm/blob/main/src/main/kotlin/com/kotlinorm/kronosSpringDemo/common/SpringDataWrapper.kt)
+项目中创建了一个自定义包装器：[SpringDataWrapper](https://github.com/Kronos-orm/kronos-example-spring-boot/blob/main/src/main/kotlin/com/kotlinorm/kronosSpringDemo/common/SpringDataWrapper.kt)
 ，您可以修改或扩展它，也可以使用其他数据源包装器。
 
 ### 动态创建对象
@@ -70,7 +70,7 @@ val dataSource = HikariDataSource().apply {
     jdbcUrl = "jdbc:mysql://localhost:3306/example"
     username = "root"
     password = "xxxx"
-}
+}.wrap()
 
 kronos.dataSource = { dataSource }
 ```
@@ -104,10 +104,10 @@ class DataSourceConfig {
 
 @SpringBootApplication
 open class Application(val config: DataSourceConfig) {
-    val dataSource by lazy { config.dataSource() }
+    val dataSource by lazy { config.dataSource().wrap() }
 
     init {
-        kronos.dataSource = { dataSource }
+        kronos.dataSource = { dataSource.wrap }
     }
 }
 ```
