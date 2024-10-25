@@ -2,7 +2,7 @@ package com.kotlinorm.kronosSpringDemo.pojos
 
 import com.kotlinorm.annotations.PrimaryKey
 import com.kotlinorm.annotations.Table
-import com.kotlinorm.beans.dsl.KPojo
+import com.kotlinorm.interfaces.KPojo
 
 @Table("tb_user")
 data class User(
