@@ -17,8 +17,7 @@ class MainController {
                     "name" to it.name,
                     "type" to it.type,
                     "nullable" to it.nullable,
-                    "primaryKey" to it.primaryKey,
-                    "autoIncrement" to it.identity,
+                    "primaryKey" to it.primaryKey.name,
                     "comment" to it.kDoc
                 )
             }

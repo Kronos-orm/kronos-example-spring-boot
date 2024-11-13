@@ -81,7 +81,6 @@ class SpringDataWrapper(private val dataSource: DataSource) : KronosDataSourceWr
                 ).safeMapperTo(kClass as KClass<KPojo>)
             } else namedJdbc.queryForObject(task.sql, task.paramMap, kClass.java)
         } catch (e: DataAccessException) {
-            e.printStackTrace()
             null
         } catch (e: Exception) {
             throw e
