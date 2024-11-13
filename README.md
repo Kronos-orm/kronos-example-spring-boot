@@ -126,4 +126,4 @@ http://localhost:8080
 If the interface returns the results shown below, Kronos has run successfully and the compiler plugin is working
 properly.
 
-![screen](https://github.com/Kronos-orm/kronos-spring-demo/blob/main/screenshot/img.png?raw=true)
+![screen](https://github.com/Kronos-orm/kronos-example-spring-boot/blob/main/screenshot/img.png?raw=true)

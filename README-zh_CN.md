@@ -122,4 +122,4 @@ http://localhost:8080
 
 如果接口返回的结果如下图所示，则表示Kronos已成功运行，编译器插件也已正常工作。
 
-![screen](https://github.com/Kronos-orm/kronos-spring-demo/blob/main/screenshot/img.png?raw=true)
+![screen](https://github.com/Kronos-orm/kronos-example-spring-boot/blob/main/screenshot/img.png?raw=true)
