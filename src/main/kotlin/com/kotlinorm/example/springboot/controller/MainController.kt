@@ -1,6 +1,6 @@
-package com.kotlinorm.kronosSpringDemo.controller
+package com.kotlinorm.example.springboot.controller
 
-import com.kotlinorm.kronosSpringDemo.pojos.User
+import com.kotlinorm.example.springboot.pojos.User
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 

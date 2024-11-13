@@ -1,4 +1,4 @@
-package com.kotlinorm.kronosSpringDemo.common
+package com.kotlinorm.example.springboot.common
 
 import org.apache.commons.dbcp2.BasicDataSource
 import org.springframework.boot.context.properties.ConfigurationProperties

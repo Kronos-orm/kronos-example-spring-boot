@@ -1,4 +1,4 @@
-package com.kotlinorm.kronosSpringDemo.common
+package com.kotlinorm.example.springboot.common
 
 import com.kotlinorm.interfaces.KPojo
 import com.kotlinorm.beans.task.KronosAtomicBatchTask
