@@ -14,7 +14,6 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager
 import org.springframework.transaction.support.TransactionTemplate
 import javax.sql.DataSource
 import kotlin.reflect.KClass
-import kotlin.reflect.full.isSuperclassOf
 
 
 /**
@@ -55,8 +54,8 @@ class SpringDataWrapper(private val dataSource: DataSource) : KronosDataSourceWr
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun forList(task: KAtomicQueryTask, kClass: KClass<*>): List<Any> {
-        return if (KPojo::class.isSuperclassOf(kClass)) namedJdbc.queryForList(
+    override fun forList(task: KAtomicQueryTask, kClass: KClass<*>, isKPojo: Boolean, superTypes: List<String>): List<Any> {
+        return if (isKPojo) namedJdbc.queryForList(
             task.sql,
             task.paramMap
         ).map { it.safeMapperTo(kClass as KClass<KPojo>) }
@@ -72,9 +71,9 @@ class SpringDataWrapper(private val dataSource: DataSource) : KronosDataSourceWr
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun forObject(task: KAtomicQueryTask, kClass: KClass<*>): Any? {
+    override fun forObject(task: KAtomicQueryTask, kClass: KClass<*>, isKPojo: Boolean, superTypes: List<String>): Any? {
         return try {
-            if (KPojo::class.isSuperclassOf(kClass)) {
+            if (isKPojo) {
                 namedJdbc.queryForMap(
                     task.sql,
                     task.paramMap

@@ -30,8 +30,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
-        <kotlin.version>2.0.0</kotlin.version>
-        <kronos.version>0.1.0-SNAPSHOT</kronos.version>
+        <kotlin.version>2.1.0</kotlin.version>
+        <kronos.version>0.0.1</kronos.version>
     </properties>
     <dependencies>
         <dependency>
@@ -41,10 +41,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-reflect</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
