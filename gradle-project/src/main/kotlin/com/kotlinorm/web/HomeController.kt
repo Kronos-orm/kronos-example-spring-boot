@@ -1,0 +1,1 @@
+// Removed server-side HomeController. Frontend routing handled by Vue app.

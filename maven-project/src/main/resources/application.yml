@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: kronos-example-spring-boot-maven
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://localhost:3306/kronos_testing"
+    username: root
+    dbcp2:
+      max-idle: 10
+
+server:
+  port: 51801

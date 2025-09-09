@@ -1,0 +1,1 @@
+// Removed MVC controller; project now serves REST APIs only. See com.kotlinorm.api.UserRestController.

@@ -1,125 +1,36 @@
 # kronos-example-spring-boot
 
--------------------------
+[English](./README.md) | 简体中文
 
-[English](https://github.com/Kronos-orm/kronos-example-spring-boot/blob/main/README.md) | 简体中文
+该仓库现在包含两套等价的示例工程（Spring Boot + Kronos ORM + Kotlin）：
 
-这是一个基于Springboot + Kronos ORM + JDK 17 + Maven + Kotlin 2.0.0的示例项目。
+- maven-project：基于 Maven 的项目（从根目录原工程复制）。
+- gradle-project：基于 Gradle 的项目。
 
-如果您想了解更多关于Kronos的信息，请访问[Kronos](https://www.kotlinorm.com/)。
+项目结构：
+- ./maven-project：Maven 构建（pom.xml），已配置 Kotlin 与 Kronos 编译器插件。
+- ./gradle-project：Gradle Kotlin DSL 构建（build.gradle.kts），已配置等价的依赖。
 
-## 引入Maven依赖
+快速开始
 
-**1. 添加Kronos依赖**
+后端（任选其一）：
+- Maven（进入 maven-project 目录）：
+  - 构建：mvn -q -DskipTests package
+  - 运行（仅提供 API）：mvn spring-boot:run
+- Gradle（进入 gradle-project 目录）：
+  - 运行：gradle bootRun（或 ./gradlew bootRun）
 
-```xml
+前端（Vue 位于 ./vue-project）：
+- cd vue-project && npm install && npm run dev
+- 打开 http://localhost:5173
 
-<dependencies>
-    <dependency>
-        <groupId>com.kotlinorm</groupId>
-        <artifactId>kronos-core</artifactId>
-        <version>${kronos.version}</version>
-    </dependency>
-</dependencies>
-```
+环境要求
+- 需要 JDK 17+
+- 如需使用提供的数据源配置，请在本地启动 MySQL 并根据需要修改 application.yml
 
-**2. 添加Kotlin编译器插件**
+说明
+- Kotlin 2.2.0 与 Kronos 0.0.6-SNAPSHOT 与原 pom.xml 保持一致。
+- 因 Kronos 使用快照版本，已启用 Sonatype Snapshots 仓库。
+- Maven 版本使用 kronos-maven-plugin 提供编译期支持。如需在 Gradle 中使用相同的编译期特性，请为 Gradle 单独配置 Kronos 编译器插件（本样例已包含运行时库与标准 Kotlin/Spring Boot 插件）。
 
-```xml
-
-<plugins>
-    <plugin>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-maven-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-            <compilerPlugins>
-                <plugin>spring</plugin>
-                <plugin>kronos-maven-plugin</plugin>
-            </compilerPlugins>
-        </configuration>
-        <dependencies>
-            <dependency>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-maven-allopen</artifactId>
-                <version>${kotlin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.kotlinorm</groupId>
-                <artifactId>kronos-maven-plugin</artifactId>
-                <version>${kronos.version}</version>
-            </dependency>
-        </dependencies>
-    </plugin>
-</plugins>
-```
-
-## 配置数据源
-
-可以动态创建对象，也可以通过配置文件创建对象。
-
-
-项目中创建了一个自定义包装器：[SpringDataWrapper](https://github.com/Kronos-orm/kronos-example-spring-boot/blob/main/src/main/kotlin/com/kotlinorm/kronosSpringDemo/common/SpringDataWrapper.kt)
-，您可以修改或扩展它，也可以使用其他数据源包装器。
-
-### 动态创建对象
-
-```kotlin
-val dataSource = HikariDataSource().apply {
-    driverClassName = "com.mysql.cj.jdbc.Driver"
-    jdbcUrl = "jdbc:mysql://localhost:3306/example"
-    username = "root"
-    password = "xxxx"
-}.wrap()
-
-kronos.dataSource = { dataSource }
-```
-
-### 通过配置文件创建对象(springboot)
-
-```yaml
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/example
-    username: root
-    password: xxxx
-    dbcp2:
-      initial-size: 5
-      max-total: 10
-      max-idle: 5
-      min-idle: 2
-      max-wait-millis: 10000
-```
-
-```kotlin
-import org.springframework.boot.autoconfigure.SpringBootApplication
-
-@Configuration
-class DataSourceConfig {
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
-    fun dataSource() = BasicDataSource()
-}
-
-@SpringBootApplication
-open class Application(val config: DataSourceConfig) {
-    val dataSource by lazy { config.dataSource().wrap() }
-
-    init {
-        kronos.dataSource = { dataSource.wrap }
-    }
-}
-```
-
-## 运行项目
-
-运行项目后，访问以下URL，即可查看结果：
-
-```
-http://localhost:8080
-```
-
-如果接口返回的结果如下图所示，则表示Kronos已成功运行，编译器插件也已正常工作。
-
-![screen](https://github.com/Kronos-orm/kronos-example-spring-boot/blob/main/screenshot/img.png?raw=true)
+更多 Kronos 信息参见：https://www.kotlinorm.com/
