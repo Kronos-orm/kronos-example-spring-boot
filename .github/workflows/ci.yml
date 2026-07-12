@@ -1,0 +1,106 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  MYSQL_DRIVER: com.mysql.cj.jdbc.Driver
+  MYSQL_JDBC_URL: jdbc:mysql://127.0.0.1:3306/kronos_testing
+  MYSQL_USERNAME: kronos
+  MYSQL_PASSWORD: kronos
+
+jobs:
+  gradle:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: kronos_testing
+          MYSQL_USER: kronos
+          MYSQL_PASSWORD: kronos
+          MYSQL_ROOT_PASSWORD: kronos
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -ukronos -pkronos"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Run Gradle tests
+        working-directory: gradle-project
+        run: ./gradlew test --no-daemon --console=plain
+
+  maven:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: kronos_testing
+          MYSQL_USER: kronos
+          MYSQL_PASSWORD: kronos
+          MYSQL_ROOT_PASSWORD: kronos
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -ukronos -pkronos"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+
+      - name: Run Maven tests
+        working-directory: maven-project
+        run: mvn -B test
+
+  frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: vue-project/package-lock.json
+
+      - name: Install dependencies
+        working-directory: vue-project
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: vue-project
+        run: npm run build
