@@ -2,9 +2,10 @@ spring:
   application:
     name: kronos-example-spring-boot-maven
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://localhost:3306/kronos_testing"
-    username: root
+    driver-class-name: ${MYSQL_DRIVER:com.mysql.cj.jdbc.Driver}
+    url: ${MYSQL_JDBC_URL:jdbc:mysql://localhost:3306/kronos_testing}
+    username: ${MYSQL_USERNAME:kronos}
+    password: ${MYSQL_PASSWORD:kronos}
     dbcp2:
       max-idle: 10
 

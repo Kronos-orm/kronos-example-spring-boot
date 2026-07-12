@@ -7,7 +7,15 @@ import com.kotlinorm.orm.update.update
 import com.kotlinorm.pojo.User
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.CrossOrigin
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @CrossOrigin(origins = ["http://localhost:5173"], allowCredentials = "false")
 @RestController
@@ -15,12 +23,12 @@ import org.springframework.web.bind.annotation.*
 class UserRestController {
 
     @GetMapping
-    fun list(): List<User> = User().select().queryList()
+    fun list(): List<User> = User().select().toList()
 
     @GetMapping("/{id}")
     fun get(@PathVariable id: Int): ResponseEntity<User> {
-        val one = User().select().where { it.id == id }.queryOne()
-        return if (one != null) ResponseEntity.ok(one) else ResponseEntity.notFound().build()
+        val one = User().select().where { it.id == id }.firstOrNull()
+        return ResponseEntity.ok(one)
     }
 
     data class SaveUserReq(
@@ -34,28 +42,31 @@ class UserRestController {
         val u = User(
             username = body.username,
             password = body.password,
-            enabled = body.enabled ?: true
+            enabled = body.enabled != false
         )
-        u.insert().execute()
-        val created = User().select().where { it.username == body.username }.queryList().maxByOrNull { it.id ?: 0 }
-        return ResponseEntity.status(HttpStatus.CREATED).body(created ?: u)
+        val created = u.insert().withId().execute().lastInsertId
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+            User(created!!.toInt()).select().where().first()
+        )
     }
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: Int, @RequestBody body: SaveUserReq): ResponseEntity<Void> {
-        val exists = User().select().where { it.id == id }.queryOne() ?: return ResponseEntity.notFound().build()
+        User().select().where { it.id == id }.firstOrNull() ?: return ResponseEntity.notFound().build()
+        val enabled = body.enabled != false
         val u = User(id = id)
         u.update().set {
             it.username = body.username
             it.password = body.password
-            it.enabled = body.enabled ?: true
+            it.enabled = enabled
         }.by { it.id }.execute()
         return ResponseEntity.noContent().build()
     }
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Int): ResponseEntity<Void> {
-        User(id = id).delete().execute()
+        User(id = id).delete().logic(false).execute()
         return ResponseEntity.noContent().build()
     }
 }

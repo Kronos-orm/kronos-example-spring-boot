@@ -9,11 +9,11 @@
 - 构建：mvn -q -DskipTests package
 - 运行（仅提供 API，不再提供服务端模板）：mvn spring-boot:run
 
-前端（Vue）位于 ../vue-project：
+前端（Vue）位于 `../vue-project`：
 - cd ../vue-project && npm install && npm run dev
 - 然后打开 http://localhost:5173
 
 说明：
 - 需要 JDK 17+
-- Kotlin 与 Kronos 版本在 pom.xml 中定义
-- 已启用 Sonatype Snapshots 仓库以获取 Kronos 快照依赖/插件
+- Kotlin 2.4.0 与 Kronos 0.2.1 在 `pom.xml` 中定义
+- 使用 `kronos-maven-plugin` 提供 Kronos 编译期支持

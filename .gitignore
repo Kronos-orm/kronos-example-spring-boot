@@ -1,5 +1,7 @@
 HELP.md
 target/
+.gradle/
+.kotlin/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -31,3 +33,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Node / Vue ###
+node_modules/
+dist/
+*.local

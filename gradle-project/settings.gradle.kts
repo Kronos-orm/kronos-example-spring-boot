@@ -8,6 +8,7 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     @Suppress("UnstableApiUsage")
     repositories {
+        mavenLocal()
         mavenCentral()
         gradlePluginPortal()
     }
@@ -15,8 +16,8 @@ dependencyResolutionManagement {
 
 pluginManagement {
     repositories {
+        mavenLocal()
         mavenCentral()
-        maven { url = uri("https://central.sonatype.com/repository/maven-snapshots/") }
         gradlePluginPortal()
     }
 }

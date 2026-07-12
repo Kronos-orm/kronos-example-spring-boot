@@ -1,15 +1,15 @@
 package com.kotlinorm
 
-import com.kotlinorm.Kronos.dataSource
 import com.kotlinorm.common.DataSourceConfig
 import com.kotlinorm.enums.KLoggerType
 import com.kotlinorm.kronosSpringDemo.util.JsonResolverUtil
 import com.kotlinorm.orm.ddl.table
 import com.kotlinorm.pojo.User
+import com.kotlinorm.wrappers.KronosJdbcWrapper
 import jakarta.annotation.PostConstruct
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+import org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration
 import org.springframework.boot.runApplication
 import org.springframework.scheduling.annotation.EnableScheduling
 
@@ -23,14 +23,14 @@ import org.springframework.scheduling.annotation.EnableScheduling
 )
 @EnableScheduling
 class KronosSpringDemoApplication(
-	@Autowired val dataSourceConfig: DataSourceConfig
+    @param:Autowired val dataSourceConfig: DataSourceConfig
 ) {
 
-    val wrapper by lazy { KronosBasicWrapper(dataSourceConfig.dataSource()) }
+    val wrapper by lazy { KronosJdbcWrapper(dataSourceConfig.dataSource()) }
 
 	@PostConstruct
     fun init() {
-        Kronos.init {
+        with(Kronos) {
             dataSource = { wrapper }
             fieldNamingStrategy = lineHumpNamingStrategy
             tableNamingStrategy = lineHumpNamingStrategy
@@ -46,5 +46,5 @@ fun main(args: Array<String>) {
 }
 
 fun sync() {
-    dataSource.table.syncTable<User>()
+    Kronos.dataSource().table.syncTable<User>()
 }

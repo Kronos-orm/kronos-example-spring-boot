@@ -4,8 +4,8 @@ English | [简体中文](./README-zh_CN.md)
 
 This repository now contains two variants of the same sample project (Spring Boot + Kronos ORM + Kotlin):
 
-- maven-project: The original Maven-based project copied from the root.
-- gradle-project: A Gradle-based version of the same project.
+- maven-project: Maven build with the Kronos Maven compiler plugin.
+- gradle-project: Gradle Kotlin DSL build with the Kronos Gradle compiler plugin.
 
 Project layout:
 - ./maven-project: Maven build (pom.xml) with Kotlin and Kronos compiler plugin configured.
@@ -26,11 +26,10 @@ Frontend (Vue at ./vue-project):
 
 Requirements
 - JDK 17+
-- MySQL running locally if you want to use the provided datasource config (update application.yml accordingly)
+- MySQL running locally if you want to use the provided datasource config. You can override it with `MYSQL_JDBC_URL`, `MYSQL_USERNAME`, and `MYSQL_PASSWORD`.
 
 Notes
-- Kronos versions and Kotlin versions are aligned with the original pom.xml (Kotlin 2.2.0; Kronos 0.0.6-SNAPSHOT).
-- Sonatype Snapshots repository is enabled because Kronos uses snapshot artifacts.
-- The Maven variant uses the kronos-maven-plugin for compile-time features. If you need the same compile-time features on Gradle, please configure the Kronos compiler plugin for Gradle (this sample includes runtime libraries and standard Spring Boot/Kotlin plugins).
+- Both variants use Kotlin 2.4.0 and Kronos 0.2.1.
+- The Maven variant uses `kronos-maven-plugin`; the Gradle variant uses `com.kotlinorm.kronos-gradle-plugin`.
 
 For more about Kronos, see https://www.kotlinorm.com/
