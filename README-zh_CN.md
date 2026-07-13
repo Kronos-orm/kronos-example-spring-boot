@@ -29,7 +29,7 @@
 - 如需使用提供的数据源配置，请在本地启动 MySQL。也可以通过 `MYSQL_JDBC_URL`、`MYSQL_USERNAME` 和 `MYSQL_PASSWORD` 覆盖连接信息。
 
 说明
-- 两套工程都使用 Kotlin 2.4.0 和 Kronos 0.2.1。
+- 两套工程都使用 Kotlin 2.4.0 和 Kronos 0.2.3。
 - Maven 版本使用 `kronos-maven-plugin`，Gradle 版本使用 `com.kotlinorm.kronos-gradle-plugin`。
 
 更多 Kronos 信息参见：https://www.kotlinorm.com/

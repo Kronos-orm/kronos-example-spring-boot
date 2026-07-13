@@ -15,5 +15,5 @@ Frontend (Vue) is in `../vue-project`. Start it with:
 
 Notes:
 - Requires JDK 17+
-- Uses Kotlin 2.4.0 and Kronos 0.2.1 as defined in `pom.xml`
+- Uses Kotlin 2.4.0 and Kronos 0.2.3 as defined in `pom.xml`
 - Uses `kronos-maven-plugin` for compile-time Kronos support

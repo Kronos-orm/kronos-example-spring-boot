@@ -16,4 +16,4 @@
 说明：
 - 需要 JDK 17+
 - Kotlin、Spring Boot 与 Kronos 版本在 `gradle.properties` 和 `libs.versions.toml` 中定义
-- 本示例使用 Kronos 0.2.1 和 `com.kotlinorm.kronos-gradle-plugin` 编译器插件
+- 本示例使用 Kronos 0.2.3 和 `com.kotlinorm.kronos-gradle-plugin` 编译器插件

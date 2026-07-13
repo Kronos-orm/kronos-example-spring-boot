@@ -16,4 +16,4 @@ Frontend (Vue) is in `../vue-project`. Start it with:
 Notes:
 - Requires JDK 17+
 - Kotlin, Spring Boot and Kronos versions are defined in `gradle.properties` and `libs.versions.toml`
-- This sample uses Kronos 0.2.1 and the `com.kotlinorm.kronos-gradle-plugin` compiler plugin
+- This sample uses Kronos 0.2.3 and the `com.kotlinorm.kronos-gradle-plugin` compiler plugin

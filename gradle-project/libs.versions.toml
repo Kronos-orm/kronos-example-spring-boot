@@ -5,7 +5,7 @@ io-spring-dep-mgmt = "1.1.7"
 coroutines = "1.8.1"
 fastjson2 = "2.0.52"
 
-kronos = "0.2.1"
+kronos = "0.2.3"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
