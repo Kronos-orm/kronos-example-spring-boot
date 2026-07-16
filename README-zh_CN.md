@@ -33,3 +33,16 @@
 - Maven 版本使用 `kronos-maven-plugin`，Gradle 版本使用 `com.kotlinorm.kronos-gradle-plugin`。
 
 更多 Kronos 信息参见：https://www.kotlinorm.com/
+
+## Spring 事务
+
+两套示例都注册了 `SpringKronosDataSourceWrapper`。查询和写入仍由内置 `KronosJdbcWrapper` 执行，JDBC 事务则由 Spring 持有。直接依赖 `spring-jdbc` 仅用于管理 `@Transactional` 的连接生命周期；示例不使用 Spring Data JDBC、`JdbcTemplate` 或第二套 SQL 执行层。
+
+Gradle 和 Maven 工程中均包含以下文件：
+
+- `common/SpringKronosDataSourceWrapper.kt`：桥接 Spring 绑定的连接，并将所有数据库操作委托给 Kronos。
+- `common/DataSourceConfig.kt`：创建同一个 `DataSource`、对应的事务管理器和 Kronos wrapper。
+- `transaction/TransactionExampleService.kt`：通过 Spring 代理的公开 service 方法演示提交、回滚和嵌套 `Kronos.transact`。
+- `SpringTransactionIntegrationTests.kt`：只使用 Kronos 数据库操作验证上述行为。
+
+事务管理器和 wrapper 必须使用同一个底层 `DataSource`。不要把 Spring 的原始 `DataSource` 直接传给 `KronosJdbcWrapper`，并假定它会自动加入 `@Transactional`。
