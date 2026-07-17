@@ -1,33 +1,27 @@
 package com.kotlinorm
 
-import com.kotlinorm.common.DataSourceConfig
 import com.kotlinorm.enums.KLoggerType
+import com.kotlinorm.interfaces.KronosDataSourceWrapper
 import com.kotlinorm.kronosSpringDemo.util.JsonResolverUtil
 import com.kotlinorm.orm.ddl.table
 import com.kotlinorm.pojo.User
-import com.kotlinorm.wrappers.KronosJdbcWrapper
 import jakarta.annotation.PostConstruct
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 import org.springframework.boot.runApplication
 import org.springframework.scheduling.annotation.EnableScheduling
 
 @SpringBootApplication(
 	scanBasePackages = [
         "com.kotlinorm.util",
-        "com.kotlinorm.common",
-        "com.kotlinorm.api",
-	],
-	exclude = [DataSourceAutoConfiguration::class]
+	        "com.kotlinorm.common",
+	        "com.kotlinorm.api",
+	        "com.kotlinorm.transaction",
+		]
 )
 @EnableScheduling
 class KronosSpringDemoApplication(
-	@Autowired val dataSourceConfig: DataSourceConfig
+	private val wrapper: KronosDataSourceWrapper
 ) {
-
-    val wrapper by lazy { KronosJdbcWrapper(dataSourceConfig.dataSource()) }
-
 	@PostConstruct
     fun init() {
         with(Kronos) {

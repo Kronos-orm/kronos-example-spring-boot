@@ -33,3 +33,16 @@ Notes
 - The Maven variant uses `kronos-maven-plugin`; the Gradle variant uses `com.kotlinorm.kronos-gradle-plugin`.
 
 For more about Kronos, see https://www.kotlinorm.com/
+
+## Spring transactions
+
+Both examples register `SpringKronosDataSourceWrapper`, which keeps query and mutation execution in the built-in `KronosJdbcWrapper` while making Spring the owner of JDBC transactions. The direct `spring-jdbc` dependency is used only for Spring's `@Transactional` connection lifecycle; the example does not use Spring Data JDBC, `JdbcTemplate`, or a second SQL execution layer.
+
+See these files in either the Gradle or Maven project:
+
+- `common/SpringKronosDataSourceWrapper.kt`: bridges the Spring-bound connection and delegates all database operations to Kronos.
+- `common/DataSourceConfig.kt`: creates one `DataSource`, its transaction manager, and the Kronos wrapper.
+- `transaction/TransactionExampleService.kt`: demonstrates commit, rollback, and nested `Kronos.transact` behavior through a Spring-proxied public service method.
+- `SpringTransactionIntegrationTests.kt`: verifies the behavior using only Kronos database operations.
+
+The transaction manager and wrapper must use the same underlying `DataSource`. Do not pass a raw Spring `DataSource` directly to `KronosJdbcWrapper` and assume that it automatically participates in `@Transactional`.

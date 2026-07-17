@@ -32,7 +32,7 @@ configurations.configureEach {
 
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    implementation("org.springframework:spring-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
 
