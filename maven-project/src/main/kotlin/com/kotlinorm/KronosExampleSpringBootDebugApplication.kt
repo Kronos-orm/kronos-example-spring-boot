@@ -29,7 +29,7 @@ class KronosSpringDemoApplication(
             fieldNamingStrategy = lineHumpNamingStrategy
             tableNamingStrategy = lineHumpNamingStrategy
             loggerType = KLoggerType.SLF4J_LOGGER
-            serializeProcessor = JsonResolverUtil
+            registerValueCodec(JsonResolverUtil.codec)
         }
     }
 }

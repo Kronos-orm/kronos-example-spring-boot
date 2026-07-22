@@ -29,7 +29,7 @@ Requirements
 - MySQL running locally if you want to use the provided datasource config. You can override it with `MYSQL_JDBC_URL`, `MYSQL_USERNAME`, and `MYSQL_PASSWORD`.
 
 Notes
-- Both variants use Kotlin 2.4.0 and Kronos 0.2.3.
+- Both variants use Kotlin 2.4.0 and Kronos 0.3.0.
 - The Maven variant uses `kronos-maven-plugin`; the Gradle variant uses `com.kotlinorm.kronos-gradle-plugin`.
 
 For more about Kronos, see https://www.kotlinorm.com/

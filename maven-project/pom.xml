@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.kotlinorm</groupId>
 	<artifactId>kronos-example-spring-boot-maven</artifactId>
-	<version>0.2.3</version>
+	<version>0.3.0</version>
 	<name>kronos-example-spring-boot-maven</name>
 	<description>kronos-example-spring-boot-maven</description>
 	<url/>
@@ -31,7 +31,7 @@
 		<kotlin.code.style>official</kotlin.code.style>
 		<kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
 		<kotlin.version>2.4.0</kotlin.version>
-		<kronos.version>0.2.3</kronos.version>
+		<kronos.version>0.3.0</kronos.version>
 	</properties>
 	<dependencies>
 		<dependency>

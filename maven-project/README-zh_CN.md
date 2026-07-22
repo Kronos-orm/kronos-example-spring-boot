@@ -15,5 +15,5 @@
 
 说明：
 - 需要 JDK 17+
-- Kotlin 2.4.0 与 Kronos 0.2.3 在 `pom.xml` 中定义
+- Kotlin 2.4.0 与 Kronos 0.3.0 在 `pom.xml` 中定义
 - 使用 `kronos-maven-plugin` 提供 Kronos 编译期支持
