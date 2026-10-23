@@ -29,7 +29,7 @@
 - 如需使用提供的数据源配置，请在本地启动 MySQL。也可以通过 `MYSQL_JDBC_URL`、`MYSQL_USERNAME` 和 `MYSQL_PASSWORD` 覆盖连接信息。
 
 说明
-- 两套工程都使用 Kotlin 2.4.0 和 Kronos 0.3.0。
+- 两套工程都使用 Kotlin 2.4.21 和 Kronos 0.4.0。
 - Maven 版本使用 `kronos-maven-plugin`，Gradle 版本使用 `com.kotlinorm.kronos-gradle-plugin`。
 
 更多 Kronos 信息参见：https://www.kotlinorm.com/
@@ -46,3 +46,12 @@ Gradle 和 Maven 工程中均包含以下文件：
 - `SpringTransactionIntegrationTests.kt`：只使用 Kronos 数据库操作验证上述行为。
 
 事务管理器和 wrapper 必须使用同一个底层 `DataSource`。不要把 Spring 的原始 `DataSource` 直接传给 `KronosJdbcWrapper`，并假定它会自动加入 `@Transactional`。
+
+## 日志
+
+Kronos 默认输出到控制台。通过统一开关关闭日志；重新开启时保留日志类型、路径和自定义工厂：
+
+```kotlin
+Kronos.logging.enabled = false
+Kronos.logging.enabled = true
+```

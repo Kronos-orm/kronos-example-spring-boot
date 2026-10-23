@@ -62,6 +62,6 @@ tasks.withType<Test> {
 tasks.withType<KotlinCompile> {
     compilerOptions {
         jvmTarget.set(JvmTarget.JVM_17)
-        freeCompilerArgs.add("-Xjsr305=strict")
+        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xcollection-literals", "-Xcontext-sensitive-resolution")
     }
 }

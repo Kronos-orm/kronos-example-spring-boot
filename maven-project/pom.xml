@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.kotlinorm</groupId>
 	<artifactId>kronos-example-spring-boot-maven</artifactId>
-	<version>0.3.0</version>
+	<version>0.4.0</version>
 	<name>kronos-example-spring-boot-maven</name>
 	<description>kronos-example-spring-boot-maven</description>
 	<url/>
@@ -30,8 +30,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<kotlin.code.style>official</kotlin.code.style>
 		<kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
-		<kotlin.version>2.4.0</kotlin.version>
-		<kronos.version>0.3.0</kronos.version>
+		<kotlin.version>2.4.21</kotlin.version>
+		<kronos.version>0.4.0</kronos.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -126,7 +126,11 @@
 				<artifactId>kotlin-maven-plugin</artifactId>
 				<extensions>true</extensions>
 				<configuration>
-					<compilerPlugins>
+					<args>
+                        <arg>-Xcollection-literals</arg>
+                        <arg>-Xcontext-sensitive-resolution</arg>
+                    </args>
+                    <compilerPlugins>
 						<!--kronos-maven-plugin提供了编译时支持-->
 						<plugin>kronos-maven-plugin</plugin>
 						<plugin>spring</plugin>

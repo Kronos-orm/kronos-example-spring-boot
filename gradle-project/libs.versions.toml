@@ -1,11 +1,11 @@
 [versions]
-kotlin = "2.4.0"
+kotlin = "2.4.21"
 spring-boot = "4.0.4"
 io-spring-dep-mgmt = "1.1.7"
 coroutines = "1.8.1"
 fastjson2 = "2.0.52"
 
-kronos = "0.3.0"
+kronos = "0.4.0"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }

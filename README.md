@@ -29,7 +29,7 @@ Requirements
 - MySQL running locally if you want to use the provided datasource config. You can override it with `MYSQL_JDBC_URL`, `MYSQL_USERNAME`, and `MYSQL_PASSWORD`.
 
 Notes
-- Both variants use Kotlin 2.4.0 and Kronos 0.3.0.
+- Both variants use Kotlin 2.4.21 and Kronos 0.4.0.
 - The Maven variant uses `kronos-maven-plugin`; the Gradle variant uses `com.kotlinorm.kronos-gradle-plugin`.
 
 For more about Kronos, see https://www.kotlinorm.com/
@@ -46,3 +46,12 @@ See these files in either the Gradle or Maven project:
 - `SpringTransactionIntegrationTests.kt`: verifies the behavior using only Kronos database operations.
 
 The transaction manager and wrapper must use the same underlying `DataSource`. Do not pass a raw Spring `DataSource` directly to `KronosJdbcWrapper` and assume that it automatically participates in `@Transactional`.
+
+## Logging
+
+Kronos logs to the console by default. Disable logging with the shared switch; re-enabling preserves the adapter, paths and custom factory:
+
+```kotlin
+Kronos.logging.enabled = false
+Kronos.logging.enabled = true
+```
