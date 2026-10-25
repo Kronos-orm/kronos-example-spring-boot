@@ -24,11 +24,12 @@ class KronosSpringDemoApplication(
 ) {
 	@PostConstruct
     fun init() {
+        KronosLoggerApp.detectLoggerImplementation()
         with(Kronos) {
             dataSource = { wrapper }
             fieldNamingStrategy = lineHumpNamingStrategy
             tableNamingStrategy = lineHumpNamingStrategy
-            loggerType = KLoggerType.SLF4J_LOGGER
+            logging.type = KLoggerType.SLF4J_LOGGER
             registerValueCodec(JsonResolverUtil.codec)
         }
     }
